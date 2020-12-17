@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ryl.mq.demo.mapper.OrderLogMapper">
+
+    <insert id="insertSelective" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO `order_log` (
+        <trim suffixOverrides=",">
+            <if test="id != null and id != ''">
+                id,
+            </if>
+            <if test="orderNo != null and orderNo != ''">
+                order_no,
+            </if>
+            <if test="createTime != null and createTime != ''">
+                create_time,
+            </if>
+        </trim>)
+        VALUES (
+        <trim suffixOverrides=",">
+            <if test="id != null and id != ''">
+                #{id},
+            </if>
+            <if test="orderNo != null and orderNo != ''">
+                #{orderNo},
+            </if>
+            <if test="createTime != null and createTime != ''">
+                #{createTime},
+            </if>
+        </trim>)
+    </insert>
+
+</mapper>

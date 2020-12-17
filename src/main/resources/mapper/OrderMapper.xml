@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ryl.mq.demo.mapper.OrderMapper">
+
+    <select id="selectByOrderNo" resultType="com.ryl.mq.demo.entity.Order">
+        SELECT * FROM `order` WHERE order_no = #{orderNo}
+    </select>
+
+    <insert id="insertSelective" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO `order`
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="id != null and id != ''">
+                id,
+            </if>
+            <if test="orderNo != null and orderNo != ''">
+                order_no,
+            </if>
+            <if test="userId != null and userId != ''">
+                user_id,
+            </if>
+            <if test="status != null and status != ''">
+                status,
+            </if>
+            <if test="createTime != null and createTime != ''">
+                create_time,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="id != null and id != ''">
+                #{id},
+            </if>
+            <if test="orderNo != null and orderNo != ''">
+                #{orderNo},
+            </if>
+            <if test="userId != null and userId != ''">
+                #{userId},
+            </if>
+            <if test="status != null and status != ''">
+                #{status},
+            </if>
+            <if test="createTime != null and createTime != ''">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateSelective">
+        UPDATE `order`
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderNo != null and orderNo != ''">
+                order_no = #{orderNo},
+            </if>
+            <if test="userId != null and userId != ''">
+                user_id = #{userId},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                update_time = #{updateTime},
+            </if>
+        </trim>
+        WHERE id = #{id}
+    </update>
+</mapper>
